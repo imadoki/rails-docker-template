@@ -7,7 +7,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 # RUN echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 # RUN apt-get install -y --no-install-recommends google-chrome-stable
 RUN apt-get update -qq && \
-  apt-get install -y --no-install-recommends git nodejs && \
+  apt-get install -y --no-install-recommends git tig nodejs && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn

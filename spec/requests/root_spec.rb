@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Roots", type: :request do
-  describe "GET /index" do
+RSpec.describe 'Roots', type: :request do
+  describe 'GET /index' do
     subject { get root_path }
 
     it { is_expected.to eq 200 }
