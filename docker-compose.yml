@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: docker
+      dockerfile: Dockerfile
+      args:
+        GID: "1000"
+        UID: "1000"
+    command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - chrome
+    environment:
+      TZ: "Asia/Tokyo"
+      DATABASE_HOST: "db"
+    volumes:
+      - .:/home/dev/rails-docker-template
+    init: true
+    stdin_open: true
+    tty: true
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3307:3307"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-confd:/etc/mysql/conf.d
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+volumes:
+  mysql_data:

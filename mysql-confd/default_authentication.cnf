@@ -1,0 +1,4 @@
+[mysqld]
+# railsが caching_sha2_password の認証形式に対応できないので、古い形式を利用する
+# https://qiita.com/yensaki/items/9e453b7320ca2d0461c7
+default_authentication_plugin = mysql_native_password
