@@ -20,10 +20,20 @@
 	"workspaceFolder": "/home/dev/rails-docker-template",
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {},
+	"settings": {
+		"solargraph.useBundler": true,
+		"solargraph.bundlerPath": "/usr/local/bin/bundler",
+		"ruby.useBundler": true,
+		"ruby.lint": {
+			"rubocop": true
+		}
+	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [],
+	"extensions": [
+		"rebornix.ruby",
+		"castwide.solargraph"
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
