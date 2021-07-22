@@ -1,0 +1,9 @@
+<div>
+  <% if @test_models.present? %>
+    <ul>
+      <% @test_models.each do |test_model| %>
+        <li><%= test_model.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

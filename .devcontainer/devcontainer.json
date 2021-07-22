@@ -32,7 +32,8 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"rebornix.ruby",
-		"castwide.solargraph"
+		"castwide.solargraph",
+		"editorconfig.editorconfig"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
