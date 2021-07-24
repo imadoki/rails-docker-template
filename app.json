@@ -1,0 +1,10 @@
+{
+  "name": "Rails Docker Template",
+  "addons": ["jawsdb:kitefin"],
+  "stack": "container",
+  "environments": {
+    "review": {
+      "addons": ["jawsdb:kitefin"]
+    }
+  }
+}
