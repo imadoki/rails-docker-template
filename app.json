@@ -4,7 +4,10 @@
   "stack": "container",
   "environments": {
     "review": {
-      "addons": ["jawsdb:kitefin"]
+      "addons": ["jawsdb:kitefin"],
+      "scripts": {
+        "postdeploy": "bundle exec rails db:schema:load db:seed"
+      }
     }
   }
 }
