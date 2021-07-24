@@ -1,0 +1,27 @@
+name: Rubocop
+on:
+  - push
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:3
+      env:
+        RAILS_ENV: test
+    steps:
+      - uses: action/checkout@v2
+      - name: gems cache
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-${{ env.cache-name }}
+            ${{ runner.os }}-gem-
+            ${{ runner.os }}-
+      - name: Setup Bundler
+        run: bundle config set path vendor/bundle
+      - name: Install Gems
+        run: bundle install --jobs 4
+      - name: Run Rubocop
+        run: bin/rubocop
