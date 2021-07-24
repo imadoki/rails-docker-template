@@ -1,3 +1,7 @@
 build:
   docker:
     web: Dockerfile.web
+release:
+  image: web
+  command:
+    - bundle exec rails db:migrate
