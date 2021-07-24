@@ -1,19 +1,33 @@
-name: Rubocop
+name: RSpec
 on:
   - push
 jobs:
   run:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: bitnami/mysql:8.0.26
+        env:
+          MYSQL_ROOT_PASSWORD: passwd
+          MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+        ports:
+          - 3307:3307
+      chrome:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
     container:
       image: ruby:3
       env:
         RAILS_ENV: test
+        TZ: Asia/Tokyo
         DATABASE_HOST: mysql
         DATABASE_USER: root
         DATABASE_PASSWORD: passwd
     steps:
       - uses: actions/checkout@v2
-      - name: gems cache
+      - name: Gems Cache
         uses: actions/cache@v2
         with:
           path: vendor/bundle
@@ -26,5 +40,7 @@ jobs:
         run: bundle config set path vendor/bundle
       - name: Install Gems
         run: bundle install --jobs 4
-      - name: Run Rubocop
-        run: bin/rubocop
+      - name: DB Setup
+        run: bin/rails db:setup
+      - name: Run RSpec
+        run: bin/rspec spec
