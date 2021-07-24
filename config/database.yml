@@ -51,5 +51,4 @@ test:
 #
 production:
   <<: *default
-  database: rails_docker_template_production
-  username: rails_docker_template
+  database: <%= ENV.fetch('DATABASE_NAME', 'rails_docker_template_production') %>
