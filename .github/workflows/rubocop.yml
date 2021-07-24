@@ -9,7 +9,7 @@ jobs:
       env:
         RAILS_ENV: test
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
       - name: gems cache
         uses: actions/cache@v2
         with:
