@@ -51,4 +51,4 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV.fetch('JAWSDB_URL').gsub(/mysql:/, 'mysql2:') %>
+  url: <%= ENV.fetch('JAWSDB_URL', nil)&.gsub(/mysql:/, 'mysql2:')%>
