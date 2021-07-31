@@ -11,6 +11,7 @@ jobs:
         DATABASE_HOST: mysql
         DATABASE_USER: root
         DATABASE_PASSWORD: passwd
+        REDIS_URL: redis://redis:6379
     steps:
       - uses: actions/checkout@v2
       - name: gems cache
