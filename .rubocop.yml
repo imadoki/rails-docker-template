@@ -6,6 +6,10 @@ require:
 AllCops:
   NewCops: enable
 
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/*
+
 # 日本語でコメント書きたいので無効に
 Style/AsciiComments:
   Enabled: false
