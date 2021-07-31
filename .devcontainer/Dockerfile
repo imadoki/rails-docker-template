@@ -3,7 +3,7 @@ FROM ruby:3
 # add node
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update -qq && \
-  apt-get install -y --no-install-recommends git tig nodejs vim && \
+  apt-get install -y --no-install-recommends git tig nodejs vim redis-tools && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn

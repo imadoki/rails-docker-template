@@ -1,10 +1,10 @@
 {
   "name": "Rails Docker Template",
-  "addons": ["jawsdb:kitefin"],
+  "addons": ["jawsdb:kitefin", "heroku-redis:hobby-dev"],
   "stack": "container",
   "environments": {
     "review": {
-      "addons": ["jawsdb:kitefin"],
+      "addons": ["jawsdb:kitefin", "heroku-redis:hobby-dev"],
       "scripts": {
         "postdeploy": "DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load db:seed"
       }

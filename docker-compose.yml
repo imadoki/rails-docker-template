@@ -12,12 +12,14 @@ services:
       - 3000:3000
     depends_on:
       - db
+      - redis
       - chrome
     environment:
       TZ: Asia/Tokyo
       DATABASE_HOST: db
       DATABASE_USER: root
       DATABASE_PASSWORD: passwd
+      REDIS_URL: redis://redis:6379
     volumes:
       - .:/home/dev/rails-docker-template
     init: true
@@ -32,9 +34,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./mysql-confd:/etc/mysql/conf.d
+  redis:
+    image: redis:6
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
       - 4444:4444
 volumes:
   mysql_data:
+  redis_data:
