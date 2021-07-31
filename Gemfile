@@ -24,6 +24,8 @@ gem 'redis-actionpack'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'simpacker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -51,6 +53,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-rubocop'
+  gem 'foreman'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
