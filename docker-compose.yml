@@ -19,7 +19,7 @@ services:
       DATABASE_HOST: db
       DATABASE_USER: root
       DATABASE_PASSWORD: passwd
-      REDIS_URL: redis://redis:6379/0
+      REDIS_URL: redis://redis:6379
     volumes:
       - .:/home/dev/rails-docker-template
     init: true
