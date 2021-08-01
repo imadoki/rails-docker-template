@@ -1,5 +1,6 @@
 const path = require("path");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const glob = require("glob");
 
 const { NODE_ENV } = process.env;
@@ -23,6 +24,14 @@ module.exports = {
   resolve: {
     extensions: [".js"],
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      }
+    ]
+  },
   devServer: {
     contentBase: path.resolve(__dirname, "public"),
     publicPath: "/packs/",
@@ -38,5 +47,8 @@ module.exports = {
       output: "manifest.json",
       writeToDisk: true
     }),
+    new MiniCssExtractPlugin({
+      filename: isProd ? "[name]-[hash].css" : "[name].css",
+    })
   ],
 };
