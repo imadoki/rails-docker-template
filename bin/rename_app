@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# usage
+# bin/rename_app [NewName]
+# ex. bin/rename_app NewRailsApp
+
+CAMELCASE_NAME=$1
+SNAKECASE_NAME=`echo ${CAMELCASE_NAME} | sed -r 's/^./\L\0/; s/([A-Z])/_\1/g; s/.*/\L\0/g;'`
+TARGET_CAMELCASE_NAME='RailsDockerTemplate'
+TARGET_SNAKECASE_NAME=`echo ${TARGET_CAMELCASE_NAME} | sed -r 's/^./\L\0/; s/([A-Z])/_\1/g; s/.*/\L\0/g;'`
+
+echo "replace:"
+echo "$TARGET_CAMELCASE_NAME to $CAMELCASE_NAME"
+echo "$TARGET_SNAKECASE_NAME to $SNAKECASE_NAME"
+
+# bundle, node_modules, tmp, .gitを含まないファイルを対象に置換
+find . -type d -name bundle -prune -o -type d -name node_modules -prune -o -type d -name tmp -prune -o -type d -name .git -prune -o -type f -name rename_app -o -type f -print0 |xargs -0 sed -i -e "s/${TARGET_CAMELCASE_NAME}/${CAMELCASE_NAME}/"
+find . -type d -name bundle -prune -o -type d -name node_modules -prune -o -type d -name tmp -prune -o -type d -name .git -prune -o -type f -name rename_app -o -type f -print0 |xargs -0 sed -i -e "s/${TARGET_SNAKECASE_NAME}/${SNAKECASE_NAME}/"
