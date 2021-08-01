@@ -19,7 +19,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "public/packs"),
     publicPath: isProd ? "/packs/" : "//localhost:8081/packs/",
-    filename: isProd ? "[name]-[hash].js" : "[name].js",
+    filename: isProd ? "[name]-[contenthash].js" : "[name].js",
   },
   resolve: {
     extensions: [".js"],
@@ -48,7 +48,7 @@ module.exports = {
       writeToDisk: true
     }),
     new MiniCssExtractPlugin({
-      filename: isProd ? "[name]-[hash].css" : "[name].css",
+      filename: isProd ? "[name]-[contenthash].css" : "[name].css",
     })
   ],
 };
