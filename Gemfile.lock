@@ -90,6 +90,7 @@ GEM
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffi (1.15.3)
+    foreman (0.87.2)
     globalid (0.5.1)
       activesupport (>= 5.0)
     hiredis (0.6.3)
@@ -218,6 +219,8 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2)
       rubyzip (>= 1.2.2)
+    simpacker (1.2.0)
+      railties (>= 4.2)
     solargraph (0.43.0)
       backport (~> 1.2)
       benchmark
@@ -271,6 +274,7 @@ DEPENDENCIES
   byebug
   capybara
   factory_bot_rails
+  foreman
   hiredis (~> 0.6.0)
   listen (~> 3.3)
   mysql2 (~> 0.5)
@@ -285,6 +289,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver (~> 4.0.0.beta4)
+  simpacker
   solargraph
   spring
   spring-commands-rspec

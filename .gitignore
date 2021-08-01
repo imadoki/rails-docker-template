@@ -31,3 +31,7 @@ vendor/bundle
 
 # environment variables
 .env
+
+/public/packs
+
+node_modules

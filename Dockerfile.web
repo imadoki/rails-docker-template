@@ -1,3 +1,12 @@
+FROM node:lts AS builder
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm i
+COPY webpack.config.js ./
+COPY app/javascript ./app/javascript
+RUN NODE_ENV=production npm run build
+
 FROM ruby:3
 
 # add node
@@ -5,12 +14,6 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV PORT=3000
 ENV TZ='Asia/Tokyo'
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get update -qq && \
-  apt-get install -y --no-install-recommends nodejs && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
-RUN npm install -g yarn
 
 RUN groupadd --gid 1000 runner \
   && useradd --uid 1000 --gid runner --shell /bin/bash --create-home runner
@@ -19,6 +22,7 @@ ENV APP_ROOT /home/runner/rails-docker-template
 RUN mkdir -p ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 COPY --chown=runner:runner . ${APP_ROOT}/
+COPY --chown=runner:runner --from=builder /app/public/packs ${APP_ROOT}/public/packs
 RUN bundle install
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
 EXPOSE ${PORT}
