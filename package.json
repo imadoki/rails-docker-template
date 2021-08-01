@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "build": "webpack"
   },
   "devDependencies": {
     "css-loader": "^6.2.0",
