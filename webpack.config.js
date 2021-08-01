@@ -12,9 +12,8 @@ glob.sync("app/javascript/packs/*.js").forEach(filePath => {
   entries[name] = path.resolve(__dirname, filePath);
 });
 
-module.exports = {
+const config = {
   mode: isProd ? "production" : "development",
-  devtool: "source-map",
   entry: entries,
   output: {
     path: path.resolve(__dirname, "public/packs"),
@@ -52,3 +51,9 @@ module.exports = {
     })
   ],
 };
+
+if (!isProd) {
+  config.devtool = "source-map"
+}
+
+module.exports = config;
