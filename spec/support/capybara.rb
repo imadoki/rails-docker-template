@@ -18,7 +18,9 @@ end
 
 # Chrome
 Capybara.register_driver :remote_chrome do |app|
-  url = 'http://chrome:4444/wd/hub'
+  chrome_host = ENV.fetch('CHROME_HOST')
+  chrome_port = ENV.fetch('CHROME_PORT')
+  url = "http://#{chrome_host}:#{chrome_port}/wd/hub"
   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
     'goog:chromeOptions' => {
       'args' => [

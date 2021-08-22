@@ -4,25 +4,19 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    container:
-      image: ruby:3
-      env:
-        RAILS_ENV: test
-        DATABASE_HOST: mysql
-        DATABASE_USER: root
-        DATABASE_PASSWORD: passwd
-        REDIS_URL: redis://redis:6379
+    env:
+      RAILS_ENV: test
+      DATABASE_HOST: mysql
+      DATABASE_USER: root
+      DATABASE_PASSWORD: passwd
+      REDIS_URL: redis://redis:6379
     steps:
       - uses: actions/checkout@v2
-      - name: gems cache
-        uses: actions/cache@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-${{ env.cache-name }}
-            ${{ runner.os }}-gem-
-            ${{ runner.os }}-
+          ruby-version: 3
+          bundler-cache: true
       - name: Setup Bundler
         run: bundle config set path vendor/bundle
       - name: Install Gems

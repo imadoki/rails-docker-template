@@ -16,7 +16,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 3307:3307
+          - 3306
       redis:
         image: redis:6
         options: >-
@@ -24,30 +24,32 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+         - 6379:6379
       chrome:
         image: selenium/standalone-chrome:latest
         ports:
           - 4444:4444
-    container:
-      image: ruby:3
-      env:
-        RAILS_ENV: test
-        TZ: Asia/Tokyo
-        DATABASE_HOST: mysql
-        DATABASE_USER: root
-        DATABASE_PASSWORD: passwd
-        REDIS_URL: redis://redis:6379
+    env:
+      RAILS_ENV: test
+      TZ: Asia/Tokyo
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USER: root
+      DATABASE_PASSWORD: passwd
+      REDIS_URL: redis://127.0.0.1:6379
+      CHROME_HOST: 127.0.0.1
+      CHROME_PORT: 4444
     steps:
       - uses: actions/checkout@v2
-      - name: Gems Cache
-        uses: actions/cache@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-${{ env.cache-name }}
-            ${{ runner.os }}-gem-
-            ${{ runner.os }}-
+          ruby-version: 3
+          bundler-cache: true
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
       - name: Node Cache
         uses: actions/cache@v2
         with:
@@ -61,15 +63,15 @@ jobs:
         run: bundle config set path vendor/bundle
       - name: Install Gems
         run: bundle install --jobs 4
-      - name: Setup Node
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
-          apt-get update -qq && apt-get install -y --no-install-recommends nodejs
       - name: Install node modules
-        run: npm i
+        run: npm ci
       - name: Build Assets
         run: npm run build
       - name: DB Setup
+        env:
+          DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bin/rails db:setup
       - name: Run RSpec
+        env:
+          DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
         run: bin/rspec spec
