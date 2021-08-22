@@ -32,12 +32,13 @@ const config = {
     ]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "public"),
-    publicPath: "/packs/",
     host: "0.0.0.0",
     port: 8081,
     headers: {
       "Access-Control-Allow-Origin": "*"
+    },
+    devMiddleware: {
+      publicPath: "/packs/"
     }
   },
   plugins: [
