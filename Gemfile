@@ -38,7 +38,7 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   # 3系はRuby3系では動作しない
   # see https://github.com/SeleniumHQ/selenium/issues/9194
-  gem 'selenium-webdriver', '~> 4.0.0.beta4'
+  gem 'selenium-webdriver', '~> 4.0.0.rc1'
 end
 
 group :development do
