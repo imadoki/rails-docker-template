@@ -5,7 +5,7 @@
     "build": "webpack"
   },
   "devDependencies": {
-    "css-loader": "^6.2.0",
+    "css-loader": "^6.5.0",
     "glob": "^7.1.7",
     "mini-css-extract-plugin": "^2.3.0",
     "webpack": "^5.53.0",
